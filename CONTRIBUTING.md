@@ -120,3 +120,13 @@ Before pushing changes or opening a pull request, run the full verification life
   - `Analyze (Java)` (CodeQL)
   - `Review Dependencies` (Dependency Review)
 6. Merges to `main` are performed strictly as **Squash Merges** to maintain a clean linear git history.
+
+## Spring Boot 4 starters
+Always add the technology starter (`spring-boot-starter-<tech>`) rather than the raw library.
+In Boot 4, auto-configuration lives in per-technology modules, so the raw library alone does nothing.
+
+Check that a module is on the classpath:
+```bash
+./mvnw dependency:tree -Dincludes=org.springframework.boot:spring-boot-flyway
+```
+Check that its auto-configuration ran: start the app with `--debug` and look for `FlywayAutoConfiguration` under "Positive matches".
