@@ -18,3 +18,10 @@ blog:
     capacity: ${BLOG_RATE_LIMIT_CAPACITY:60}
     refill-tokens: ${BLOG_RATE_LIMIT_REFILL_TOKENS:60}
     refill-duration: ${BLOG_RATE_LIMIT_REFILL_DURATION:1m}
+
+# API docs are a development tool: off in production unless explicitly enabled (#14).
+springdoc:
+  api-docs:
+    enabled: ${BLOG_API_DOCS_ENABLED:false}
+  swagger-ui:
+    enabled: ${BLOG_API_DOCS_ENABLED:false}
