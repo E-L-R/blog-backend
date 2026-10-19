@@ -116,9 +116,12 @@ The API documents itself (springdoc-openapi). With the app running locally:
 
 Until the security configuration arrives ([#17](https://github.com/E-L-R/blog-backend/issues/17)), the
 running app answers every request with 401, these included; `OpenApiDocsIT` opens them for its test.
-Both are off in production unless `BLOG_API_DOCS_ENABLED=true`. How endpoints are documented is in
-[`docs/api-conventions.md`](docs/api-conventions.md); versioning, paging and sorting follow in
-[#15](https://github.com/E-L-R/blog-backend/issues/15). Every error follows [`docs/problems.md`](docs/problems.md).
+Both are off in production unless `BLOG_API_DOCS_ENABLED=true`.
+
+Every endpoint lives under `/api/v1`, lists are paged (`?page=0&size=20&sort=publishedAt,desc`, at
+most 50 per page), and every error follows
+[`docs/problems.md`](docs/problems.md). The details, including how endpoints are documented, are in
+[`docs/api-conventions.md`](docs/api-conventions.md).
 
 ## Deployment
 
