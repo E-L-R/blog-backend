@@ -8,6 +8,14 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate   # Flyway owns the schema; Hibernate only checks the mapping matches
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC   # write and read timestamps in UTC, whatever the server's time zone
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        default_batch_fetch_size: 50   # load lazy collections of many parents in groups of 50 (#38)
 
 blog:
   jwt:
