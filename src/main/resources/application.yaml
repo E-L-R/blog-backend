@@ -6,6 +6,8 @@ spring:
       enabled: true
   jpa:
     open-in-view: false
+    hibernate:
+      ddl-auto: validate   # Flyway owns the schema; Hibernate only checks the mapping matches
 
 blog:
   jwt:
