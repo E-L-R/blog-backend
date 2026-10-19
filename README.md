@@ -32,6 +32,33 @@ flowchart LR
 - **PostgreSQL with Flyway migrations**, tested against the real database with Testcontainers
   ([ADR-0006](docs/adr/0006-store-data-in-postgresql-with-flyway-migrations.md)).
 
+### Code structure
+
+Code is organized by feature, not by layer ([ADR-0003](docs/adr/0003-organize-code-by-feature.md)).
+Each package under `io.github.elr.blog` documents its responsibility in its `package-info.java`.
+
+| Package | Responsibility |
+| --- | --- |
+| `common` | Cross-cutting building blocks with no feature knowledge: base entity, errors, paging, web conventions |
+| `config` | Application-wide Spring configuration: properties, clock, auditing, OpenAPI |
+| `security` | Filter chain, JWT encoding and decoding, authorization helpers |
+| `auth` | Register, login, refresh, logout |
+| `user` | Accounts, profiles, roles |
+| `post`, `tag`, `comment` | The blog domain |
+| `tldr` | TL;DR generation via the model service |
+
+A feature keeps its repositories and entities to itself: other features use its service. The rules
+are tests. [`ArchitectureTest`](src/test/java/io/github/elr/blog/architecture/ArchitectureTest.java)
+(ArchUnit) fails the build when one breaks:
+
+- No dependency cycles between packages (`post → user → post`).
+- `common` doesn't depend on any feature.
+- Controllers don't use repositories, don't return JPA entities (not even inside `ResponseEntity`,
+  `List` or `Page`), and don't open transactions. Transactions belong to services, with Spring's
+  `@Transactional`, not `jakarta.transaction.Transactional`.
+- Constructor injection only, no field injection.
+- Log through SLF4J: no `System.out`/`System.err`, no `java.util.logging`.
+
 ## Tech stack
 
 | Area | Choice |
@@ -41,7 +68,7 @@ flowchart LR
 | Security | Spring Security 7, OAuth2 Resource Server (JWT, RS256) |
 | Database | PostgreSQL 17, schema migrations with Flyway |
 | API documentation | springdoc-openapi (OpenAPI 3, Swagger UI) |
-| Tests | JUnit 6, AssertJ, MockMvc, Testcontainers, JaCoCo coverage gate |
+| Tests | JUnit 6, AssertJ, MockMvc, Testcontainers, ArchUnit, JaCoCo coverage gate |
 | Build and quality | Maven (wrapper), Spotless (Palantir Java Format), GitHub Actions, CodeQL, Dependabot |
 
 ## Local development
