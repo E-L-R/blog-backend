@@ -18,7 +18,7 @@ below, for example `https://github.com/E-L-R/blog-backend/blob/main/docs/problem
 
 | Member | Meaning |
 | --- | --- |
-| `type` | The kind of problem: one of the sections below |
+| `type` | The kind of problem: one of the sections below (absent for [Spring MVC's own errors](#errors-without-one-of-these-types)) |
 | `title` | A short summary of the type |
 | `status` | The HTTP status code, repeated in the body |
 | `detail` | What went wrong in this request, for humans |
@@ -78,6 +78,14 @@ help, and reporting the trace id helps more.
 
 Some errors produced by Spring MVC itself, such as an unknown URL (404), a wrong HTTP method (405),
 an unsupported `Content-Type` (415), malformed JSON or an unsupported API version (400), are problem
-details too, but with
-`"type": "about:blank"`. RFC 9457 defines that as "nothing more to say than the status code": treat
-them by their `status`.
+details too, but they have **no `type` member**. RFC 9457 says a missing `type` means `about:blank`:
+nothing more to say than the status code. Treat them by their `status`:
+
+```json
+{
+  "title": "Method Not Allowed",
+  "status": 405,
+  "detail": "Method 'PUT' is not supported.",
+  "instance": "/api/v1/auth/login"
+}
+```
