@@ -1,65 +1,36 @@
 version: 2
 updates:
-  # 1. Maven Dependencies (pom.xml)
   - package-ecosystem: "maven"
     directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
-      timezone: "UTC"
+    schedule: { interval: "weekly", day: "monday", time: "06:00", timezone: "UTC" }
+    cooldown:
+      default-days: 3
     open-pull-requests-limit: 10
     groups:
       minor-and-patch:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-    commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "type:chore"
-      - "area:build"
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    commit-message: { prefix: "chore(deps)" }
+    labels: ["type:chore", "area:build"]
 
-  # 2. GitHub Actions Workflows (.github/workflows)
   - package-ecosystem: "github-actions"
     directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
-      timezone: "UTC"
-    open-pull-requests-limit: 10
+    schedule: { interval: "weekly", day: "monday", time: "06:00", timezone: "UTC" }
+    cooldown:
+      default-days: 3
     groups:
-      minor-and-patch:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-    commit-message:
-      prefix: "ci(deps)"
-    labels:
-      - "type:ci"
+      actions:
+        patterns: ["*"]
+    commit-message: { prefix: "ci(deps)" }
+    labels: ["type:ci"]
 
-  # 3. Docker Images (compose.yaml)
-  - package-ecosystem: "docker"
+  - package-ecosystem: "docker-compose"   # compose.yaml (and compose.prod.yaml from #53)
     directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
-      timezone: "UTC"
-    open-pull-requests-limit: 10
-    groups:
-      minor-and-patch:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-    commit-message:
-      prefix: "chore(docker)"
-    labels:
-      - "type:infra"
+    schedule: { interval: "weekly", day: "monday", time: "06:00", timezone: "UTC" }
+    cooldown:
+      default-days: 3
+    commit-message: { prefix: "chore(docker)" }
+    labels: ["type:infra"]
+
+  # The "docker" ecosystem (Dockerfile) is added together with the Dockerfile in #51: without one,
+  # its weekly run fails with "No Dockerfiles nor Kubernetes YAML found".
