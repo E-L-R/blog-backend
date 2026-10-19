@@ -231,10 +231,25 @@
                 </executions>
             </plugin>
             <!-- Surefire: Run fast unit tests (*Test.java) during 'test' phase -->
+            <!-- Exposes every dependency's jar path as ${groupId:artifactId:jar}, used for the Mockito agent below (#78) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- @{argLine} (late evaluation) keeps JaCoCo's agent; Mockito is loaded as an agent instead of self-attaching (#78) -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
@@ -249,9 +264,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
+                    <!-- @{argLine} (late evaluation) keeps JaCoCo's agent; Mockito is loaded as an agent instead of self-attaching (#78) -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
                     <includes>
                         <include>**/*IT.java</include>
                     </includes>
+                    <properties>
+                        <!-- ITs share one database: run them one class at a time (#78) -->
+                        <configurationParameters>junit.jupiter.execution.parallel.enabled = false</configurationParameters>
+                    </properties>
                 </configuration>
                 <executions>
                     <execution>
@@ -270,10 +291,8 @@
                 <version>${jacoco.version}</version>
                 <configuration>
                     <excludes>
+                        <!-- main() is exercised by every IT but its single line is not worth a ceremony test -->
                         <exclude>**/BlogApplication.*</exclude>
-                        <exclude>**/config/**</exclude>
-                        <exclude>**/*DTO.*</exclude>
-                        <exclude>**/*Record.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
