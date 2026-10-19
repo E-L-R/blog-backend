@@ -24,6 +24,7 @@ Why the system is built the way it is: one decision per record, never edited aft
 
 - [Problem types](problems.md): every error `type` the API returns, and what a client should do about it.
 - [Database schema](er-diagram.md): the ER diagram, the rules the database enforces, and the indexes.
+- [API conventions](api-conventions.md): how endpoints are documented with OpenAPI (Swagger UI at `/swagger-ui.html`).
 
 ## Coming with the features
 
@@ -31,7 +32,7 @@ Each of these documents is added by the issue that builds the feature:
 
 | Document | Issue |
 | --- | --- |
-| API conventions: status codes, `Location` headers, paging, sorting, versioning (`api-conventions.md`) | [#15](https://github.com/E-L-R/blog-backend/issues/15) |
+| API conventions, continued: status codes, `Location` headers, paging, sorting, versioning | [#15](https://github.com/E-L-R/blog-backend/issues/15) |
 | Security design: the filter chain, JWTs, registration, login, refresh-token rotation | [#17](https://github.com/E-L-R/blog-backend/issues/17)–[#21](https://github.com/E-L-R/blog-backend/issues/21) |
 | Deployment: production Compose stack, the VM and continuous deployment, the Netlify frontend's API host | [#53](https://github.com/E-L-R/blog-backend/issues/53), [#81](https://github.com/E-L-R/blog-backend/issues/81), [#86](https://github.com/E-L-R/blog-backend/issues/86) |
 | Runbooks: backups and the restore drill | [#82](https://github.com/E-L-R/blog-backend/issues/82) |

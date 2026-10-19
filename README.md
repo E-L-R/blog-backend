@@ -109,8 +109,16 @@ Integration tests (`*IT`) run against a real PostgreSQL in Docker, with the same
 
 ## API
 
-Planned: interactive documentation with Swagger UI ([#14](https://github.com/E-L-R/blog-backend/issues/14)), and the conventions for versioning,
-paging and sorting ([#15](https://github.com/E-L-R/blog-backend/issues/15)). Every error follows [`docs/problems.md`](docs/problems.md).
+The API documents itself (springdoc-openapi). With the app running locally:
+
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- OpenAPI 3.1 document: http://localhost:8080/v3/api-docs
+
+Until the security configuration arrives ([#17](https://github.com/E-L-R/blog-backend/issues/17)), the
+running app answers every request with 401, these included; `OpenApiDocsIT` opens them for its test.
+Both are off in production unless `BLOG_API_DOCS_ENABLED=true`. How endpoints are documented is in
+[`docs/api-conventions.md`](docs/api-conventions.md); versioning, paging and sorting follow in
+[#15](https://github.com/E-L-R/blog-backend/issues/15). Every error follows [`docs/problems.md`](docs/problems.md).
 
 ## Deployment
 
