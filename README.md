@@ -125,8 +125,12 @@ most 50 per page), and every error follows
 
 ## Deployment
 
-Planned: a container image ([#51](https://github.com/E-L-R/blog-backend/issues/51)) and a production Compose stack with TLS ([#53](https://github.com/E-L-R/blog-backend/issues/53)), deployed to a VM
-with GitHub Environments ([#81](https://github.com/E-L-R/blog-backend/issues/81)).
+Planned: a container image ([#51](https://github.com/E-L-R/blog-backend/issues/51)) and a production Compose stack ([#53](https://github.com/E-L-R/blog-backend/issues/53)) on one EC2
+Spot instance behind Cloudflare Tunnel, with no open ports ([#110](https://github.com/E-L-R/blog-backend/issues/110), [#112](https://github.com/E-L-R/blog-backend/issues/112)), deployed
+with GitHub Environments and Systems Manager ([#81](https://github.com/E-L-R/blog-backend/issues/81)). Billing alerts and automatic stops are
+part of the setup ([#111](https://github.com/E-L-R/blog-backend/issues/111)), and the frontend stays on Netlify.
+[ADR-0010](docs/adr/0010-run-on-one-ec2-spot-instance-behind-cloudflare-tunnel.md) explains why, and
+when to revisit it.
 
 ## Documentation
 

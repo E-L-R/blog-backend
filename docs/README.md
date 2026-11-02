@@ -19,6 +19,8 @@ Why the system is built the way it is: one decision per record, never edited aft
 | [0006](adr/0006-store-data-in-postgresql-with-flyway-migrations.md) | Store data in PostgreSQL, with the schema owned by Flyway migrations | Accepted |
 | [0007](adr/0007-report-errors-as-rfc-9457-problem-details.md) | Report every error as an RFC 9457 problem detail | Accepted |
 | [0008](adr/0008-version-the-api-in-the-path.md) | Version the API in the path, with Spring Framework 7's API versioning | Accepted |
+| [0009](adr/0009-restrict-publishing-and-protect-against-spam.md) | Restrict publishing to admins, and protect sign-ups and comments against spam | Accepted |
+| [0010](adr/0010-run-on-one-ec2-spot-instance-behind-cloudflare-tunnel.md) | Run on one EC2 Spot instance behind Cloudflare Tunnel, with kill switches | Accepted |
 
 ## Reference
 
@@ -33,6 +35,6 @@ Each of these documents is added by the issue that builds the feature:
 | Document | Issue |
 | --- | --- |
 | Security design: the filter chain, JWTs, registration, login, refresh-token rotation | [#17](https://github.com/E-L-R/blog-backend/issues/17)–[#21](https://github.com/E-L-R/blog-backend/issues/21) |
-| Deployment: production Compose stack, the VM and continuous deployment, the Netlify frontend's API host | [#53](https://github.com/E-L-R/blog-backend/issues/53), [#81](https://github.com/E-L-R/blog-backend/issues/81), [#86](https://github.com/E-L-R/blog-backend/issues/86) |
-| Runbooks: backups and the restore drill | [#82](https://github.com/E-L-R/blog-backend/issues/82) |
+| Deployment: production Compose stack, the AWS server, Cloudflare, continuous deployment, the Netlify frontend's API host | [#53](https://github.com/E-L-R/blog-backend/issues/53), [#110](https://github.com/E-L-R/blog-backend/issues/110), [#112](https://github.com/E-L-R/blog-backend/issues/112), [#81](https://github.com/E-L-R/blog-backend/issues/81), [#86](https://github.com/E-L-R/blog-backend/issues/86) |
+| Runbooks: backups and the restore drill, billing kill switches and recovery | [#82](https://github.com/E-L-R/blog-backend/issues/82), [#111](https://github.com/E-L-R/blog-backend/issues/111) |
 | The OpenAPI document (`openapi.json`), checked by a test, and the final architecture diagrams | [#57](https://github.com/E-L-R/blog-backend/issues/57) |

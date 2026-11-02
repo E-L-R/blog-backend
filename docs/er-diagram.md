@@ -104,7 +104,9 @@ overwriting a newer one.
 
 ## Coming in later migrations
 
-- `V2`: a generated full-text search column on `posts`, with its index ([#33](https://github.com/E-L-R/blog-backend/issues/33)).
-- `V3`: the `post_tldrs` table, one row per post with the TL;DR's state and provenance ([#41](https://github.com/E-L-R/blog-backend/issues/41)).
+- `V2`: `users.email_verified_at` and the `email_verification_tokens` table ([#104](https://github.com/E-L-R/blog-backend/issues/104)).
+- `V3`: a generated full-text search column on `posts`, with its index ([#33](https://github.com/E-L-R/blog-backend/issues/33)).
+- `V4`: the `comment_reports` table ([#107](https://github.com/E-L-R/blog-backend/issues/107)).
+- `V5`: the `post_tldrs` table, one row per post with the TL;DR's state and provenance ([#41](https://github.com/E-L-R/blog-backend/issues/41)).
 
 Merged migrations are never edited: every change is a new `V<n>__description.sql`.
