@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Secrets: these never go into git (#116) ###
+.env
+.env.*
+!.env.example
+admin.env
+secrets/
+*.pem
